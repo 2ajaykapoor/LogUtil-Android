@@ -70,60 +70,17 @@ public class WebUtil {
 
     public static void LogActivityTest() {
 
-        String strURL = "http://localhost:9000/api/v1/activity-engine/activity";
-
+        JSONObject postDataParams = new JSONObject();
         try {
-            //Create a URL object holding our url
-            URL myUrl = new URL(strURL);
-
-            //Create a connection
-            HttpURLConnection connection = (HttpURLConnection)
-                    myUrl.openConnection();
-
-            JSONObject postDataParams = new JSONObject();
-            try {
-                postDataParams.put("userId", "morpheus");
-                postDataParams.put("activityName", "leader");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            //Set methods and timeouts
-            connection.setRequestMethod(REQUEST_METHOD);
-            connection.setReadTimeout(READ_TIMEOUT);
-            connection.setConnectTimeout(CONNECTION_TIMEOUT);
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-
-            OutputStream os = connection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(os, "UTF-8"));
-            try {
-                writer.write(getPostDataString(postDataParams));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            writer.flush();
-            writer.close();
-            os.close();
-            BufferedReader in = new BufferedReader(new
-                    InputStreamReader(
-                    connection.getInputStream()));
-
-            StringBuffer sb = new StringBuffer("");
-            String line = "";
-
-            while ((line = in.readLine()) != null) {
-
-                sb.append(line);
-                break;
-            }
-            in.close();
-        } catch (IOException e) {
+            postDataParams.put("userId", "morpheus");
+            postDataParams.put("activityName", "leader4455");
+        } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        String strURL = "http://192.168.0.8:9000/api/v1/activity-engine/activity";
+
+        LogActivity(strURL, postDataParams.toString());
     }
 
     public static String getPostDataString(JSONObject params) throws Exception {
